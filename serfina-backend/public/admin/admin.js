@@ -12,14 +12,24 @@
     const fd = new FormData(e.target);
     const user = fd.get('user');
     const pass = fd.get('pass');
-    const resp = await fetch('/admin/login', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({user,pass})});
-    if (resp.ok){
+
+    const resp = await fetch('/admin/login', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({user, pass})
+    });
+
+    const data = await resp.json(); // <- esto es clave
+    if (data.ok){
       isAdmin = true;
       loginSection.classList.add('hidden');
       dashboard.classList.remove('hidden');
       socket.emit('register_admin');
-    } else alert('Credenciales incorrectas');
-  });
+    } else {
+      alert('Credenciales incorrectas');
+    }
+});
+
 
   document.getElementById('logoutBtn').addEventListener('click', async ()=>{ await fetch('/admin/logout', {method:'POST'}); window.location.reload(); });
 
