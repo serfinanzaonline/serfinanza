@@ -33,6 +33,18 @@ function decrypt(b64){
 }
 
 const app = express();
+
+// --- Added by ChatGPT: serve frontend static files from Personal/ ---
+const path = require('path');
+// Serve frontend static assets (Personal folder)
+app.use(express.static(path.join(__dirname, '..', 'Personal')));
+
+// root -> Login index
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'Personal', 'Login', 'index.html'));
+});
+// ---------------------------------------------------------------
+
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
 
