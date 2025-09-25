@@ -1,0 +1,16 @@
+/* Corporate style adapted from user's site colors (adjust as needed) */
+body{font-family:Arial,Helvetica,sans-serif;background:#f5f7fa;color:#1f2937;margin:0;padding:0}
+.topbar{background:#0b4f6c;color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:center}
+.card{background:#fff;padding:12px;border-radius:8px;box-shadow:0 2px 6px rgba(16,24,40,0.04);margin:12px}
+.hidden{display:none}
+.row{display:flex;gap:8px;align-items:center;padding:8px}
+.col{flex:1}
+.actions .btn{margin-right:6px}
+button{cursor:pointer}
+.retry{background:#f97316;color:#fff;border:none;padding:6px 8px;border-radius:6px;margin-right:4px}
+.cont{background:#10b981;color:#fff;border:none;padding:6px 8px;border-radius:6px}
+.eye{background:#fff;border:1px solid #ddd;padding:4px;border-radius:6px}
+.alert-box{position:fixed;top:16px;right:16px;z-index:9999;padding:12px 16px;border-radius:8px;color:#fff}
+.alert-red{background:#dc2626}
+.alert-actions{margin-top:8px}
+.alert-actions button{margin-right:6px}
