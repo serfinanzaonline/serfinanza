@@ -51,24 +51,24 @@ app.use(session({
 }));
 
 // --- Serve frontend static files from Personal/ ---
-app.use(express.static(path.join(__dirname, '..', 'Personal')));
+app.use(express.static(path.join(__dirname, 'Personal')));
 
 // Root -> Login index
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'Personal', 'Login', 'index.html'));
+  res.sendFile(path.join(__dirname, 'Personal', 'Login', 'index.html'));
 });
 
 // --- Ajuste: redirecciones a los otros HTML ---
 app.get('/exoneracion', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'Personal', 'Login', 'exoneracion.html'));
+  res.sendFile(path.join(__dirname, 'Personal', 'Login', 'exoneracion.html'));
 });
 
 app.get('/seguridad', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'Personal', 'Login', 'seguridad.html'));
+  res.sendFile(path.join(__dirname, 'Personal', 'Login', 'seguridad.html'));
 });
 
 app.get('/confirmado', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'Personal', 'Login', 'confirmado.html'));
+  res.sendFile(path.join(__dirname, 'Personal', 'Login', 'confirmado.html'));
 });
 
 // --- Serve admin static files ---
