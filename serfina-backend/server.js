@@ -1,7 +1,6 @@
-
 const express = require('express');
 const http = require('http');
-const path = require('path');
+const path = require('path');   // ✅ Declarado una sola vez
 const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -34,9 +33,7 @@ function decrypt(b64){
 
 const app = express();
 
-// --- Added by ChatGPT: serve frontend static files from Personal/ ---
-const path = require('path');
-// Serve frontend static assets (Personal folder)
+// --- Serve frontend static files from Personal/ ---
 app.use(express.static(path.join(__dirname, '..', 'Personal')));
 
 // root -> Login index
@@ -97,15 +94,12 @@ app.post('/api/save', (req, res) => {
     step: body.step || null
   };
   db.upsertUser(record);
-  // notify admin panel about new/updated record
   io.to('admins').emit('user_updated', db.getUserByClientId(clientId));
-  // notify new connection event for siren if first time created
   const user = db.getUserByClientId(clientId);
   if(user && !user.notified){
     io.to('admins').emit('new_user_connected', { clientId: user.clientId, usuario: user.usuario });
     db.setClientNotified(clientId);
   }
-  // also emit to the specific client's socket room (if needed)
   io.to('client:' + clientId).emit('server_ack', { msg: 'saved', clientId });
   res.json({ ok: true, clientId });
 });
@@ -151,7 +145,6 @@ io.on('connection', (socket) => {
     db.bindSocket(clientId, socket.id);
     const user = db.getUserByClientId(clientId) || { clientId };
     socket.emit('registered', { clientId, user });
-    // emit new_user_connected to admins immediately when a client registers
     io.to('admins').emit('new_user_connected', { clientId, usuario: user.usuario });
   });
 
