@@ -35,15 +35,6 @@ function decrypt(b64){
 }
 
 const app = express();
-
-// --- Serve frontend static files from Personal/ ---
-app.use(express.static(path.join(__dirname, '..', 'Personal')));
-
-// Root -> Login index
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'Personal', 'Login', 'index.html'));
-});
-
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
 
@@ -58,6 +49,15 @@ app.use(session({
   saveUninitialized: false,
   cookie: { secure: false }
 }));
+
+// --- Serve static files --- 
+app.use(express.static(path.join(__dirname, 'public'))); // public
+app.use(express.static(path.join(__dirname, '..', 'Personal', 'Login'))); // Login pages
+
+// Root -> Login index
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'Personal', 'Login', 'index.html'));
+});
 
 // --- Serve admin static files ---
 app.use('/admin/static', express.static(path.join(__dirname, 'public', 'admin')));
